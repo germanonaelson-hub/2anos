@@ -7,6 +7,27 @@
 
 <style>
 
+#restartBtn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    padding: 12px 22px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+
+    background: linear-gradient(45deg,#ff4d6d,#ff8fa3);
+    color: white;
+    font-weight: bold;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+
+    display: none;
+    z-index: 999;
+}
+
 body{
     margin:0;
     overflow:hidden;
@@ -22,7 +43,7 @@ canvas{
 </head>
 
 <body>
-
+<button id="restartBtn">🔄 Recomeçar</button>
 <canvas id="game"></canvas>
 
 <script>
@@ -196,6 +217,7 @@ function checkCollision(){
 
         if(dist<(player.size/2+o.size/2)){
             gameOver=true;
+            document.getElementById("restartBtn").style.display = "block";
         }
     });
 }
@@ -272,8 +294,26 @@ window.addEventListener("resize", ()=>{
     canvas.height = window.innerHeight;
 
 });
+    document.getElementById("restartBtn").addEventListener("click", restartGame);
+
+function restartGame() {
+
+    obstacles = [];
+    score = 0;
+    gameOver = false;
+    timeAlive = 0;
+    gameSpeed = 2;
+
+    player.x = canvas.width / 2 - player.size / 2;
+    player.y = canvas.height - 120;
+
+    document.getElementById("restartBtn").style.display = "none";
+    if (navigator.vibrate) navigator.vibrate(50);
+    requestAnimationFrame(gameLoop);
+}
 </script>
 
 </body>
 </html>
+
 
