@@ -1,0 +1,366 @@
+;<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nossos 2 anos ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3,#fad0c4);
+    background-size: 300% 300%;
+    animation: gradient 10s ease infinite;
+    color:white;
+    text-align:center;
+}
+
+@keyframes gradient{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    padding:40px 20px;
+}
+
+h1{
+    font-size:2.5em;
+}
+
+.card{
+    background: rgba(255,255,255,0.18);
+    padding:35px;
+    margin:30px auto;
+    border-radius:20px;
+    max-width:900px; /* AQUI aumentamos */
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+    transform: translateY(-5px);
+}
+.card{
+    opacity:0;
+    transform:translateY(30px);
+    animation: aparecer 1s forwards;
+}
+
+.card:nth-child(2){animation-delay:0.3s;}
+.card:nth-child(3){animation-delay:0.6s;}
+.card:nth-child(4){animation-delay:0.9s;}
+
+@keyframes aparecer{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+img{
+    width:100%;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:#ff4b6e;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:20px;
+}
+#startScreen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#startScreen button{
+    padding:15px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:12px;
+    background:white;
+    color:#ff4b6e;
+    cursor:pointer;
+}
+.timeline{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.step{
+    text-align:center;
+    width:90px;
+    transition:0.4s;
+}
+
+.step span{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:50px;
+    height:50px;
+    margin:auto;
+    border-radius:50%;
+    font-size:22px;
+}
+
+/* PASSADO */
+.step.done span{
+    background:white;
+    color:#ff4b6e;
+}
+
+.step.done p{
+    font-weight:bold;
+}
+
+/* PRESENTE */
+.step.current span{
+    background:#ff4b6e;
+    color:white;
+    transform:scale(1.2);
+    box-shadow:0 0 20px rgba(255,75,110,0.7);
+}
+
+.step.current p{
+    font-weight:bold;
+}
+
+/* FUTURO */
+.step.future span{
+    background:rgba(255,255,255,0.3);
+    opacity:0.6;
+}
+
+.line{
+    width:50px;
+    height:3px;
+    background:rgba(255,255,255,0.4);
+}
+.line{
+    flex:1;
+    height:6px;
+    background:rgba(255,255,255,0.25);
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+}
+
+.fill{
+    height:100%;
+    width:0%;
+    background:white;
+    border-radius:10px;
+    transition:2s ease;
+}
+
+/* etapas completas */
+.fill.done{
+    width:100%;
+}
+
+/* QUASE NO NOIVADO ⭐ */
+.fill.quase{
+    width:95%;
+    background:linear-gradient(90deg,
+        white,
+        #ffd1dc,
+        white);
+    box-shadow:0 0 12px rgba(255,255,255,0.8);
+}
+
+/* futuro */
+.fill.future{
+    width:0%;
+}
+</style>
+</head>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<body>
+<div id="startScreen">
+    <h1>❤️ Uma surpresa para você ❤️</h1>
+    <button onclick="entrarTelaCheia()">Abrir nossa história</button>
+</div>
+<div class="container">
+
+<h1>❤️ Nossos 2 anos ❤️</h1>
+<p>Uma pequena surpresa para a pessoa que mudou minha vida.</p>
+
+<div class="card">
+<h2>Como tudo começou</h2>
+<p>
+Nossa história começou de um jeito bem engraçado ne?
+Ti conheci através de uma amiga e sendo bem sincero,
+naquela época eu era só um adolescente que não entendia muita coisa da vida
+e tentei dar em cima de vocês duas kkkkkk
+que bom que o tempo passou e pude amamdurecer mais, como falamos, tudo no tempo de Deus
+fico feliz por todas as nossas fazes, e de como evoluimos, desde eu ser o cara estranho no onibus que não parava de te plhar, para namorado, quase noivo, uma grande evolução kkkk,.
+</p>
+</div>
+<div class="card">
+<h2>Nossa Jornada ❤️</h2>
+
+<div class="timeline">
+
+<div class="step done">
+    <span>✔</span>
+    <p>Nos conhecemos</p>
+</div>
+
+<div class="line">
+    <div class="fill done"></div>
+</div>
+
+<div class="step done">
+    <span>✔</span>
+    <p>Viramos amigos</p>
+</div>
+
+<div class="line">
+    <div class="fill done"></div>
+</div>
+
+<div class="step current">
+    <span>❤️</span>
+    <p>Namoro</p>
+</div>
+
+<div class="line">
+    <div class="fill quase"></div>
+</div>
+
+<div class="step future">
+    <span>💍</span>
+    <p>Noivado</p>
+</div>
+
+<div class="line">
+    <div class="fill future"></div>
+</div>
+
+<div class="step future">
+    <span>👰🤵</span>
+    <p>Casamento</p>
+</div>
+
+</div>
+</div>
+<div class="card">
+<h2>Coisas que eu amo em nós ❤️</h2>
+
+<div class="love-list">
+
+    <div class="love-item">
+        <div>
+            <h3>Amo quando rimos juntos</h3> <br>
+            <h3>Amo quando nos olhamos, com aquele olhar de quem quem genuinamente se ama.</h3><br>
+            <h3>Amo quando mesmo que brigados, não largo a mão um do outro, idependete do problema que temos</h3><br>
+            <h3>Amo como combinamos</h3><br>
+            <h3>Amo quando..... amo tudo que envolva nos ❤️</h3><br>
+
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<div class="card">
+<h2>Minha mensagem pra você</h2>
+<p>
+Obrigado por cada risada, cada apoio e cada momento juntos.
+Esses 2 anos são só o começo da nossa história.
+Eu te amo ❤️
+</p>
+</div>
+
+<a href="https://www.youtube.com/watch?v=6lfz0BwzkKk&list=RD6lfz0BwzkKk&start_radio=1" target="_blank">
+    <button class="botao-final">Clique aqui ❤️</button>
+</a>
+
+</div>
+
+<script>
+function tocarMusica(){
+    document.getElementById("musica").play();
+}
+</script>
+<script>
+function entrarTelaCheia(){
+
+    const doc = document.documentElement;
+
+    if(doc.requestFullscreen){
+        doc.requestFullscreen();
+    }else if(doc.webkitRequestFullscreen){
+        doc.webkitRequestFullscreen();
+    }
+
+    document.getElementById("startScreen").style.display="none";
+}
+</script>
+<script>
+setInterval(()=>{
+    const heart=document.createElement("div");
+    heart.innerHTML="❤️";
+    heart.style.position="fixed";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.bottom="-20px";
+    heart.style.fontSize="20px";
+    heart.style.animation="subir 5s linear";
+    document.body.appendChild(heart);
+
+    setTimeout(()=>heart.remove(),5000);
+},800);
+
+
+</script>
+<script>
+window.onload = () => {
+    document.querySelectorAll(".fill").forEach((el,i)=>{
+        setTimeout(()=>{
+            el.style.width = getComputedStyle(el).width;
+        },300*i);
+    });
+};
+</script>
+<style>
+@keyframes subir{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100vh); opacity:0;}
+}
+</style>
+<script>
+window.addEventListener("load", () => {
+    document.querySelectorAll(".fill").forEach((bar,i)=>{
+        const largura = getComputedStyle(bar).width;
+        bar.style.width = "0px";
+
+        setTimeout(()=>{
+            bar.style.width = largura;
+        },300*i);
+    });
+});
+</script>
+</body>
+</html>

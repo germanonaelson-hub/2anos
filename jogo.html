@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso Joguinho ❤️</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    background:linear-gradient(180deg,#ff7aa2,#ff4d88);
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+canvas{
+    display:block;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="game"></canvas>
+
+<script>
+
+// ================= CANVAS =================
+
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// ================= CONTROLES =================
+
+const keys = {};
+
+document.addEventListener("keydown",(e)=>{
+    keys[e.key]=true;
+
+    if(e.key==="r" && gameOver){
+        restartGame();
+    }
+});
+
+document.addEventListener("keyup",(e)=>{
+    keys[e.key]=false;
+});
+// ===== CONTROLE TOUCH (CELULAR) =====
+
+canvas.addEventListener("touchmove",(e)=>{
+
+    const touch = e.touches[0];
+
+    player.x = touch.clientX;
+    player.y = touch.clientY;
+
+});
+
+
+document.body.addEventListener("touchmove", function(e){
+    e.preventDefault();
+}, { passive:false });
+
+// ================= PLAYER =================
+
+let player={
+    x:canvas.width/2,
+    y:canvas.height-120,
+    size:90
+};
+
+const playerImg=new Image();
+playerImg.src="momento1.jpg";
+
+// ================= PALAVRAS =================
+let dificuldade = 1;
+const palavras=[
+"ciúmes",
+"distância",
+"discussões",
+"insegurança",
+"saudade",
+"rotina",
+"stress",
+"medo",
+"tempo curto",
+"problemas"
+];
+
+
+
+// ================= OBSTÁCULOS =================
+
+let obstacles=[];
+let spawnTimer=0;
+
+function spawnObstacle(){
+
+    obstacles.push({
+        x:Math.random()*canvas.width,
+        y:-40,
+        size:40 + Math.random()*20*dificuldade,
+        speed:2+Math.random()*2 * dificuldade,
+        texto:palavras[Math.floor(Math.random()*palavras.length)]
+    });
+}
+
+// ================= MOVIMENTO PLAYER =================
+
+function movePlayer(){
+
+    const speed=6;
+
+    if(keys["ArrowLeft"]) player.x-=speed;
+    if(keys["ArrowRight"]) player.x+=speed;
+    if(keys["ArrowUp"]) player.y-=speed;
+    if(keys["ArrowDown"]) player.y+=speed;
+
+    player.x=Math.max(player.size/2,
+        Math.min(canvas.width-player.size/2,player.x));
+
+    player.y=Math.max(player.size/2,
+        Math.min(canvas.height-player.size/2,player.y));
+}
+
+// ================= DESENHOS =================
+
+function drawPlayer(){
+
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.arc(player.x,player.y,player.size/2,0,Math.PI*2);
+    ctx.clip();
+
+    if(playerImg.complete && playerImg.naturalWidth!==0){
+        ctx.drawImage(
+            playerImg,
+            player.x-player.size/2,
+            player.y-player.size/2,
+            player.size,
+            player.size
+        );
+    }else{
+        ctx.fillStyle="white";
+        ctx.fill();
+    }
+
+    ctx.restore();
+}
+
+function drawObstacles(){
+
+    ctx.font="16px Arial";
+    ctx.textAlign="center";
+
+    obstacles.forEach(o=>{
+
+        ctx.beginPath();
+        ctx.arc(o.x,o.y,o.size/2,0,Math.PI*2);
+        ctx.fillStyle="#ff2e74";
+        ctx.fill();
+
+        ctx.fillStyle="white";
+        ctx.fillText(o.texto,o.x,o.y+5);
+    });
+}
+
+// ================= UPDATE =================
+
+function updateObstacles(){
+
+    obstacles.forEach(o=>{
+        o.y+=o.speed;
+    });
+
+    obstacles=obstacles.filter(o=>o.y<canvas.height+50);
+}
+
+// ================= COLISÃO =================
+
+let gameOver=false;
+
+function checkCollision(){
+
+    obstacles.forEach(o=>{
+
+        const dx=player.x-o.x;
+        const dy=player.y-o.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+
+        if(dist<(player.size/2+o.size/2)){
+            gameOver=true;
+        }
+    });
+}
+
+// ================= GAME OVER =================
+
+function drawGameOver(){
+
+    ctx.fillStyle="rgba(0,0,0,0.6)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle="white";
+    ctx.font="50px Arial";
+    ctx.textAlign="center";
+    ctx.fillText("Você me perdeu 😢",
+        canvas.width/2,
+        canvas.height/2-20);
+
+    ctx.font="22px Arial";
+    ctx.fillText("Pressione R para jogar novamente",
+        canvas.width/2,
+        canvas.height/2+40);
+}
+
+// ================= RESTART =================
+
+function restartGame(){
+
+    obstacles=[];
+    gameOver=false;
+
+    player.x=canvas.width/2;
+    player.y=canvas.height-120;
+
+    loop();
+}
+
+// ================= LOOP =================
+
+function loop(){
+dificuldade += 0.002;
+    if(gameOver){
+        drawGameOver();
+        return;
+    }
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    movePlayer();
+
+    spawnTimer++;
+    if(spawnTimer>60){
+        spawnObstacle();
+        spawnTimer=0;
+    }
+
+    updateObstacles();
+
+    drawPlayer();
+    drawObstacles();
+
+    checkCollision();
+
+    requestAnimationFrame(loop);
+}
+
+// inicia jogo quando imagem carregar
+playerImg.onload=()=>loop();
+playerImg.onerror=()=>loop();
+
+window.addEventListener("resize", ()=>{
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+});
+</script>
+
+</body>
+</html>
